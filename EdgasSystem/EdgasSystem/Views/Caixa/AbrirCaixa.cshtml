@@ -1,0 +1,237 @@
+﻿
+@{
+    ViewData["Title"] = "AbrirCaixa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+    <!--begin::Subheader-->
+    <div class="subheader py-2 py-lg-6 subheader-solid" id="kt_subheader">
+        <div class="container-fluid d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+            <!--begin::Info-->
+            <div class="d-flex align-items-center flex-wrap mr-1">
+                <!--begin::Page Heading-->
+                <div class="d-flex align-items-baseline flex-wrap mr-5">
+                    <!--begin::Page Title-->
+                    <h5 class="text-dark font-weight-bold my-1 mr-5">Caixa</h5>
+                    <!--end::Page Title-->
+                    <!--begin::Breadcrumb-->
+                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Controle de Caixa</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="" class="text-muted">Abrir Caixa</a>
+                        </li>
+                    </ul>
+                    <!--end::Breadcrumb-->
+                </div>
+                <!--end::Page Heading-->
+            </div>
+            <!--end::Info-->
+            <!--begin::Tutorial Button-->
+            <div class="d-flex align-items-end">
+                <button class="btn btn-bg btn-clean btn-icon" data-toggle="modal" data-target="#modaltutorial"><i class="flaticon-questions-circular-button"></i></button>
+            </div>
+            <!--begin::Tutorial Modal-->
+        </div>
+    </div>
+    <!--end::Subheader-->
+    <!--begin::Entry-->
+    <div class="d-flex flex-column-fluid">
+        <!--begin::Container-->
+        <div class="container-fluid">
+            <!--begin::Card-->
+            <div class="card card-custom gutter-b">
+                <!--begin::Header-->
+                <div class="card-header border-0 py-5">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="card-label font-weight-bolder text-dark">Dados para abertura do Caixa</span>
+                    </h3>
+                </div>
+                <!--end::Header-->
+                <!--begin::Modal Tutorial-->
+                <div class="modal fade" id="modaltutorial" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header no-bd">
+                                <h5 class="modal-title">
+                                    <span class="fw-mediumbold">
+                                        Ajuda?
+                                    </span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Para Registrar uma Abertura de Caixa:</p>
+                                <ul>
+                                    <li>Detalhar aqui</li>
+                                </ul>
+
+                            </div>
+                            <div class="modal-footer no-bd">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end::Modal Tutorial-->
+                <div class="card-body">
+                    <form id="formAbertura">
+                        <div class="row">
+                            <div class="col-12 col-md-2">
+                                <div class="form-group">
+                                    <label for="numCaixa">Número do Caixa <span class="required-label">*</span></label>
+                                    <input id="numCaixa" name="numCaixa" type="text" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-4">
+                                <div class="form-group">
+                                    <label>Funcionario Responsável pela Abertura<span class="required-label">*</span></label>
+                                    <div class="select2-input">
+                                        <select id="funcionario" name="funcionario" class="form-control" required>
+                                            <option value="" disabled selected>Selecione um Funcionario</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-2">
+                                <label>Saldo Inicial<span class="required-label">*</span></label>
+                                <input id="saldo" name="saldo" type="text" class="form-control" required>
+                            </div>
+
+                        </div>
+                        
+                    </form>
+                </div>
+
+                <div class="card-footer float-right justify-content-between mt-lg-5">
+                    <div>
+                        <button class="btn btn-primary float-right" id="btnAbrirCaixa" onclick="javascript: gravarAbertura();">
+                            <span class="btn-label">
+                                <i class="fa fa-save">&nbsp; </i>
+                            </span>
+                            Abrir Caixa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        
+        <!--end::Card-->
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-lg-6">
+                <!--begin::Charts Widget 1-->
+                <div class="card card-custom card-stretch gutter-b">
+                    <!--begin::Header-->
+                    <div class="card-header border-0 py-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label font-weight-bolder text-dark">Ultimas Aberturas de Caixa</span>
+                        </h3>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body">
+                        <table class="table table-separate table-head-custom table-checkable" id="tableCaixaAberto">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%">Nr. Caixa</th>
+                                    <th style="width: 20%">Funcioário</th>
+                                    <th style="width: 10%">Data</th>
+                                    <th style="width: 25%">Saldo Inicial</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end::Charts Widget 1-->
+            </div>
+            <div class="col-lg-6">
+                <!--begin::List Widget 8-->
+                <div class="card card-custom card-stretch gutter-b">
+                    <!--begin::Header-->
+                    <div class="card-header border-0 py-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="card-label font-weight-bolder text-dark">Ultimos Fechamentos de Caixa</span>
+                        </h3>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Body-->
+                    <div class="card-body">
+                        <table class="table table-separate table-head-custom table-checkable" id="tableCaixaUltimos">
+                            <thead>
+                                <tr>
+                                    <th style="width: 10%">Nr. Caixa</th>
+                                    <th style="width: 30%">Data</th>
+                                    <th style="width: 25%">Saldo Final</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--end::Body-->
+                </div>
+                <!--end: Card-->
+                <!--end::List Widget 8-->
+            </div>
+        </div>
+        <!--end::Row-->
+        </div>
+        <!--end::Container-->
+    </div>
+</div>
+
+@section script{
+
+    <script src="~/js/views/Caixa/AbrirCaixa.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $("#numCaixa").mask("##0");
+        });
+
+        $(document).ready(function () {
+            $("#saldo").mask('##0,00', { reverse: true });
+        });
+
+
+        /*$('#assinatura').select2({
+            placeholder: "Selecione um plano"
+        });
+
+        $(document).ready(function () {
+            $('#tableMaterial tbody').on('click', 'tr', function () {
+                var table = $('#tableMaterial').DataTable();
+                var data = table.row(this).data();
+                $("#cod_material").val(data[0]);
+                $("#material_descricao").val(data[1]);
+                $('#buscaMaterialModal').modal('hide');
+            });
+        });
+
+        $(document).ready(function () {
+            $('#tableAlmoxarifado tbody').on('click', 'tr', function () {
+                var table = $('#tableAlmoxarifado').DataTable();
+                var data = table.row(this).data();
+                $("#cod_almoxarifado").val(data[0]);
+                $("#almoxarifado_descricao").val(data[1]);
+                $('#buscaAlmoxarifadoModal').modal('hide');
+            });
+        });*/
+        
+    </script>
+
+}
+
+
+
